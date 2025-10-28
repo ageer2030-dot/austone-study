@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Austone Study</title>
+
+  <style>
+    .answerButton{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: x-large;
+  width: 10rem;
+  text-align: center;
+  transition: 0.1s;
+  border-radius: 10px;
+  border: none;
+  inset: none;
+}
+
+.CreateQuestion{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: x-large;
+  width: 200px;
+  text-align: center;
+  transition: 0.25s;
+  border-radius: 10px;
+  border: none;
+  inset: none;
+}
+
+.CreateQuestion:hover{
+  background-color: rgb(127, 201, 222);
+}
+
+.answerButton:hover{
+  width: 11rem;
+}
+
+body{
+  background: #4c0854;
+  background: radial-gradient(circle, rgba(76, 8, 84, 1) 0%, rgba(14, 14, 14, 1) 100%);
+}
+
+*{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.question{
+  color: white;
+}
+
+.editMode{
+  margin-top: 100px;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: 100px;
+}
+
+input{
+  border-radius: 10px;
+  border: none;
+  inset: none;
+  width: 200px;
+}
+  </style>
+
+  
+</head>
+<body>
+  <h1 id="Question" class="question">Question</h1>
+
+<button class="answerButton" id="Answer1" onclick="AnswerQuestion(1)" >Answer 1</button>
+<button class="answerButton" id="Answer2" onclick="AnswerQuestion(2)" >Answer 2</button>
+
+<div class="editMode">
+  <button class="CreateQuestion" onclick="CreateQuestion()">Create new question</button>
+  <input type="text" id="e_name" placeholder="Question Name">
+  <input type="text" id="e_answer1" placeholder="Answer 1">
+  <input type="text" id="e_answer2" placeholder="Answer 2">
+  <input type="number" id="e_correct" min="1" max="2" placeholder="Correct (1 or 2)">
+</div>
+
+  <script>
+    //
+// Who is this?}John>Chungus*1
+//
+
+let Questions = {
+  "Sample Question":{
+    Title: "Sample Question",
+    Answer1: "Next",
+    Answer2: "Incorrect",
+    Correct: 1
+  },
+}
+
+let CurrentQuestion
+
+function AnswerQuestion(answer){
+  if(CurrentQuestion.Correct == answer){
+    alert("Correct! 🎊")
+    var QuestionKeys = Object.keys(Questions); 
+
+    var QuestionAmount = QuestionKeys.length;
+    var RNG = Math.floor(Math.random() * QuestionAmount); 
+    var RandomKey = QuestionKeys[RNG];
+
+    var Q = Questions[RandomKey]; 
+    CurrentQuestion = Q
+    document.getElementById('Question').innerHTML = Q.Title
+    document.getElementById("Answer1").innerHTML = Q.Answer1
+    document.getElementById("Answer2").innerHTML = Q.Answer2
+  }else{
+    alert("Incorrect!")
+  }
+}
+
+function NewQuestion(){
+    var QuestionKeys = Object.keys(Questions); 
+
+    var QuestionAmount = QuestionKeys.length;
+    var RNG = Math.floor(Math.random() * QuestionAmount); 
+    var RandomKey = QuestionKeys[RNG];
+
+    var Q = Questions[RandomKey]; 
+    CurrentQuestion = Q
+    document.getElementById('Question').innerHTML = Q.Title
+    document.getElementById("Answer1").innerHTML = Q.Answer1
+    document.getElementById("Answer2").innerHTML = Q.Answer2
+}
+
+function CreateQuestion(){
+  var NewQuestion = {}
+  NewQuestion.Title = document.getElementById("e_name").value
+  console.log(document.getElementById("e_name").value)
+  NewQuestion.Answer1 = document.getElementById("e_answer1").value
+  NewQuestion.Answer2 = document.getElementById("e_answer2").value
+  NewQuestion.Correct = document.getElementById("e_correct").value
+  Questions[document.getElementsByClassName("e_name")] = NewQuestion
+}
+
+$(document).ready(function() {
+  var QuestionKeys = Object.keys(Questions); 
+  
+  var QuestionAmount = QuestionKeys.length;
+  var RNG = Math.floor(Math.random() * QuestionAmount); 
+  var RandomKey = QuestionKeys[RNG];
+  
+  var Q = Questions[RandomKey]; 
+  CurrentQuestion = Q
+
+  document.getElementById('Question').innerHTML = Q.Title
+  document.getElementById("Answer1").innerHTML = Q.Answer1
+  document.getElementById("Answer2").innerHTML = Q.Answer2
+});
+  </script>
+</body>
+</html>
